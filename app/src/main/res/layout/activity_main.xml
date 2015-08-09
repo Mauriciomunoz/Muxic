@@ -10,10 +10,38 @@
     <msfot.muxic.magic_playlist
         android:id="@+id/listSong"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="500dp">
 
     </msfot.muxic.magic_playlist>
 
+
+    <LinearLayout
+        android:layout_below="@+id/listSong"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+
+    <Button
+        android:layout_below="@+id/listSong"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:text="Musica"
+        />
+    <Button
+
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:text="Promos"
+        />
+    <Button
+
+        android:layout_width="120dp"
+        android:layout_height="fill_parent"
+        android:text="Sugerencia"
+        />
+    </LinearLayout>
 
 
 

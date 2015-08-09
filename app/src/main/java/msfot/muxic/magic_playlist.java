@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -21,6 +23,8 @@ public class magic_playlist extends RelativeLayout {
     static ListView myList;
     String urlImagen;
 
+    Button btnUp;
+
     public magic_playlist(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -28,6 +32,10 @@ public class magic_playlist extends RelativeLayout {
         RelativeLayout vistaCompuesta = (RelativeLayout) inflater.inflate(R.layout.magic_playlist, this);
 
         myList=(ListView) findViewById(R.id.music_list);
+
+
+
+
     }
 
 

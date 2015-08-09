@@ -2,16 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#B0B0B0"
+    android:background="#bbbbbb"
     android:id="@+id/itemSong"
 
     >
 
 
     <RelativeLayout
+        android:paddingLeft="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
         >
 
         <TextView
@@ -63,14 +66,17 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/precio"
+        android:onClick="clickHandler"
+        android:id="@+id/btnUp"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:text="+1"
-        android:textColor="#FF0000"
-        android:textSize="15dip"
+        android:text="0xf087"
+        android:textColor="#FFFFFF"
+        android:background="#5CB85C"
+        android:textSize="18dip"
         android:textStyle="bold"
         android:typeface="sans"
+        android:layout_marginRight="5dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

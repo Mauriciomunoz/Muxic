@@ -2,10 +2,12 @@ package msfot.muxic;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -52,15 +54,25 @@ public class list_adapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(mViewResourceId, null);
 
+
+        Button btn=(Button)convertView.findViewById(R.id.btnUp);
+        btn.setTag(position);
+
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/fontawesome.ttf");
+
+        btn.setTypeface(font);
+        btn.setText(new String(Character.toChars(0xf087)));
+
         String[] strSeparate = mStrings[position].split("##");
         TextView title = (TextView)convertView.findViewById(R.id.cancion);
-        title.setText("El Taxi");
+
+        title.setText(strSeparate[0]);
 
         TextView artista = (TextView)convertView.findViewById(R.id.artista);
-        artista.setText("No se");
+        artista.setText(strSeparate[2]);
 
         TextView album=(TextView)convertView.findViewById(R.id.album);
-        album.setText("Menos lo se");
+        album.setText(strSeparate[1]);
 
 
         /*
