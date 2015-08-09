@@ -2,8 +2,11 @@ package msfot.muxic;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -11,9 +14,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -45,30 +52,184 @@ public class MainActivity extends Activity {
 
     magic_playlist mList;
 
-    ArrayList<String> foods=null;
-
     JSONParser jParser = new JSONParser();
     JSONArray columnas = null;
     ArrayList<String> col;
+
+    static ArrayList<String> songs;
 
     String tag;
 
     boolean error=false;
 
     private ProgressDialog pDialog;
+    FrameLayout frame;
+
+    Button playNow;
+    Button catalogo;
+    Button sugerencias;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction().add(R.id.container, new CardFrontFragment()).commit();
+        }*/
+
         col = new ArrayList<String>();
+
+        //frame = (FrameLayout) findViewById(R.id.container);
+
+        playNow=(Button)findViewById(R.id.playingNow);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
+
+        playNow.setTypeface(font);
+        playNow.setText(new String(Character.toChars(0xf01D)));
+
+
+        playNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //flipCard(2);
+                Intent intent = new Intent(MainActivity.this, PlayingActivity.class);
+                //intent.putExtra("", message);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+
+        catalogo = (Button)findViewById(R.id.catalogo);
+        catalogo.setTypeface(font);
+        catalogo.setText(new String(Character.toChars(0xf001)));
+
+
+        catalogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                //intent.putExtra("", message);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+        sugerencias=(Button)findViewById(R.id.sugerencias);
+        sugerencias.setTypeface(font);
+        sugerencias.setText(new String(Character.toChars(0xf075)));
+
+
+        sugerencias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SugerenciaActivity.class);
+                //intent.putExtra("", message);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         new LoadAllProducts().execute();
     }
 
+/*
+    private void flipCard(int tipo) {
+       //
+       // if (mShowingBack) {
+         //   getFragmentManager().popBackStack();
+           // mShowingBack = false;
+           // return;
+       // }
 
+        // Flip to the back.
 
+        //mShowingBack = true;
+
+        // Create and commit a new fragment transaction that adds the fragment for the back of
+        // the card, uses custom animations, and is part of the fragment manager's back stack.
+
+        if(tipo==1) {
+            getFragmentManager()
+                    .beginTransaction()
+
+                            // Replace the default fragment animations with animator resources representing
+                            // rotations when switching to the back of the card, as well as animator
+                            // resources representing rotations when flipping back to the front (e.g. when
+                            // the system Back button is pressed).
+                    .setCustomAnimations(
+                            R.animator.card_flip_right_in, R.animator.card_flip_right_out,
+                            R.animator.card_flip_left_in, R.animator.card_flip_left_out)
+
+                            // Replace any fragments currently in the container view with a fragment
+                            // representing the next page (indicated by the just-incremented currentPage
+                            // variable).
+
+                    .replace(R.id.container, new CardFrontFragment())
+
+                            // Add this transaction to the back stack, allowing users to press Back
+                            // to get to the front of the card.
+                    //.addToBackStack(null)
+
+                            // Commit the transaction.
+                    .commit();
+        }else{
+            if(tipo==2){
+                getFragmentManager()
+                        .beginTransaction()
+
+                                // Replace the default fragment animations with animator resources representing
+                                // rotations when switching to the back of the card, as well as animator
+                                // resources representing rotations when flipping back to the front (e.g. when
+                                // the system Back button is pressed).
+                        .setCustomAnimations(
+                                R.animator.card_flip_right_in, R.animator.card_flip_right_out,
+                                R.animator.card_flip_left_in, R.animator.card_flip_left_out)
+
+                                // Replace any fragments currently in the container view with a fragment
+                                // representing the next page (indicated by the just-incremented currentPage
+                                // variable).
+
+                        .replace(R.id.container, new CardBackFragment())
+
+                                // Add this transaction to the back stack, allowing users to press Back
+                                // to get to the front of the card.
+                        //.addToBackStack(null)
+
+                                // Commit the transaction.
+                        .commit();
+            }else{
+                getFragmentManager()
+                        .beginTransaction()
+
+                                // Replace the default fragment animations with animator resources representing
+                                // rotations when switching to the back of the card, as well as animator
+                                // resources representing rotations when flipping back to the front (e.g. when
+                                // the system Back button is pressed).
+                        .setCustomAnimations(
+                                R.animator.card_flip_right_in, R.animator.card_flip_right_out,
+                                R.animator.card_flip_left_in, R.animator.card_flip_left_out)
+
+                                // Replace any fragments currently in the container view with a fragment
+                                // representing the next page (indicated by the just-incremented currentPage
+                                // variable).
+
+                        .replace(R.id.container, new CardThirdFragment())
+
+                                // Add this transaction to the back stack, allowing users to press Back
+                                // to get to the front of the card.
+                        //.addToBackStack(null)
+
+                                // Commit the transaction.
+                        .commit();
+            }
+        }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -143,7 +304,7 @@ public class MainActivity extends Activity {
 
                 String js2=getJSON("http://private-29a5c-saborellatest.apiary-mock.com/notes");
 
-                String js=getJSON("http://192.168.211.206:3000/playlist");
+                String js=getJSON("http://192.168.211.206:3000/catalog");
 
 
 
@@ -160,23 +321,84 @@ public class MainActivity extends Activity {
 
                         String col2=c.getString("track");
 
+
                         JSONObject obj = new JSONObject(col2);
 
+                        /*
+                        JSONArray albumObj=obj.getJSONArray("album");
+                        String album="";
+                        for(int j=0;j<albumObj.length();j++){
+                            JSONObject albums = albumObj.getJSONObject(i);
+
+                            album=albums.getString("name");
+
+
+
+                        }*/
+
+
                         String album=obj.getString("album");
+
+                        String auxAlbum[]=album.split("\"");
+
+                        ArrayList<String> auxDataAlbum=new ArrayList<String>();
+                        for(int x=0;x<auxAlbum.length;x++){
+                            if(auxAlbum[x].equals(":")){
+                                auxDataAlbum.add(auxAlbum[x+1]);
+                            }
+                        }
+
+                        album=auxDataAlbum.get(auxDataAlbum.size()-1);
+
+
+                        String imgAlbum=auxDataAlbum.get(0);
+                        String imgAlbumAux[]=imgAlbum.split("/");
+                        imgAlbum=imgAlbumAux[imgAlbumAux.length-1];
+
+                        /*
                         album=album.replace("{\"name\":\"","");
-                        album=album.replace("\"}","");
+                        album=album.replace("\"}","");*/
 
 
-                        String artistasAux[]=obj.getString("artists").split("name");
+                        String trackid=obj.getString("id");
+
+                        /*
+                        JSONArray artObj=obj.getJSONArray("artists");
+                        String artist="";
+                        String separador="";
+
+                        for(int j=0;j<artObj.length();j++){
+                            JSONObject arts = artObj.getJSONObject(i);
+
+                            artist=separador+arts.getString("name");
+                            separador=separador+",";
+
+                        }*/
+
+                        String artist="";
+                        String separador="";
+
+                        JSONArray arrayArtist=obj.getJSONArray("artists");
+                        ArrayList<String> artistList=new ArrayList<String>();
+
+
+                        for(int y=0;y<arrayArtist.length();y++){
+                            JSONObject artObj = arrayArtist.getJSONObject(y);
+                            artist=artist+artObj.getString("name")+", ";
+
+                        }
+
+                        artist=artist.substring(0,artist.length()-2);
+
+                        /*
                         String artist=obj.getString("artists");
-
-
-                        artist=artist.replace("[{\"name\":\"","");
+                        artist=artist.replace("[{\"name\":\"", "");
                         artist=artist.replace("\"}]","");
+                        */
 
                         String song=obj.getString("name");
 
-                        String informacion=song+"##"+artist+"##"+album;
+                        String informacion=song+"##"+artist+"##"+album+"##"+trackid+"##"+imgAlbum;
                         col.add(informacion);
 
 
@@ -213,7 +435,7 @@ public class MainActivity extends Activity {
                         //setContentView(R.layout.activity_main);
                         // setContentView(R.layout.activity_main);
 
-
+                        songs=col;
                         llenaPortada(col);
 
                     } else {
@@ -226,19 +448,51 @@ public class MainActivity extends Activity {
         }
 
         public void llenaPortada(ArrayList<String> columnasInfo){
-            mList = (magic_playlist) findViewById(R.id.listSong);
+            mList = (magic_playlist)findViewById(R.id.listSongs);
             mList.llenaLista(columnasInfo);
+        }
+    }
+
+    /**
+     * A fragment representing the second page of the card.
+     */
+    public class CardBackFragment extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.fragment_card_back, container, false);
+        }
+    }
+
+    /**
+     * A fragment representing the first page of the card.
+     */
+    public class CardFrontFragment extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.fragment_card_front, container, false);
+        }
+    }
+
+    /**
+     * A fragment representing the third page of the card.
+     */
+    public class CardThirdFragment extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.fragment_third_card, container, false);
         }
     }
 
     public void clickHandler(View v)
     {
 
-
-
-
         RelativeLayout vwParentRow = (RelativeLayout)v.getParent();
         tag = v.getTag().toString();
+
+
 
         //get the row the clicked button is in
         new moveSong().execute();
@@ -332,6 +586,11 @@ public class MainActivity extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+
+            Intent intent = new Intent(MainActivity.this, PlayingActivity.class);
+            //intent.putExtra("", message);
+            startActivity(intent);
+            finish();
             // Dismiss the progress dialog
 
         }
@@ -340,7 +599,7 @@ public class MainActivity extends Activity {
     public void postData() {
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://192.168.211.206:3000/up");
+        HttpPost httppost = new HttpPost("http://192.168.211.206:3000/add");
 
 
         //httppost.setHeader("Authorization","Token "+myToken);
@@ -350,7 +609,7 @@ public class MainActivity extends Activity {
         try {
             // Add your data
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("id", tag));
+            nameValuePairs.add(new BasicNameValuePair("track_id", tag));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             // Execute HTTP Post Request
@@ -378,4 +637,6 @@ public class MainActivity extends Activity {
 
 
     }
+
+
 }

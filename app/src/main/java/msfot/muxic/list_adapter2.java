@@ -11,17 +11,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.koushikdutta.ion.Ion;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-
 /**
- * Created by Mau on 08/08/15.
+ * Created by Mau on 09/08/15.
  */
-public class list_adapter extends ArrayAdapter<String> {
+public class list_adapter2 extends ArrayAdapter<String> {
 
     private String[] mStrings;
     private TypedArray mIcons;
@@ -30,7 +25,7 @@ public class list_adapter extends ArrayAdapter<String> {
     private static LayoutInflater inflater=null;
     //public ImageLoader imageLoader;
 
-    public list_adapter(Context ctx, int viewResourceId,
+    public list_adapter2(Context ctx, int viewResourceId,
                         String[] strings) {
         super(ctx, viewResourceId, strings);
 
@@ -63,18 +58,7 @@ public class list_adapter extends ArrayAdapter<String> {
         convertView = inflater.inflate(mViewResourceId, null);
 
 
-
-        Button btn=(Button)convertView.findViewById(R.id.btnUp);
-
-
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/fontawesome.ttf");
-
-        btn.setTypeface(font);
-        btn.setText(new String(Character.toChars(0xf087)));
-
         String[] strSeparate = mStrings[position].split("##");
-
-        btn.setTag(strSeparate[3]);
 
         TextView title = (TextView)convertView.findViewById(R.id.cancion);
 
@@ -86,23 +70,8 @@ public class list_adapter extends ArrayAdapter<String> {
         TextView album=(TextView)convertView.findViewById(R.id.album);
         album.setText(strSeparate[1]);
 
-        ImageView imgAlb=(ImageView)convertView.findViewById((R.id.imgAlbum));
-
-        String encodedURL="";
-
-        try {
-            encodedURL = URLDecoder.decode(strSeparate[4], "UTF-8");
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-
-        UrlImageViewHelper.setUrlDrawable(imgAlb,"http://i.scdn.co/image/"+strSeparate[4]);
-
-
-       // Ion.with(imgAlb).load("http://i.scdn.co/image/"+strSeparate[4]);
-
+        ImageView imgAlb=(ImageView)convertView.findViewById((R.id.imgAlbum2));
+        UrlImageViewHelper.setUrlDrawable(imgAlb, "http://i.scdn.co/image/" + strSeparate[3]);
 
         /*
         if(strSeparate.length>1){

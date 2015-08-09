@@ -2,21 +2,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:id="@+id/catalogTitle"
+        >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="CATALOGO"
+
+    android:textSize="30sp"
+    android:gravity="center_horizontal"
+    android:textColor="#FFFFFF"
+    />
+    </LinearLayout>
 
     <msfot.muxic.magic_playlist
-        android:id="@+id/listSong"
+        android:layout_below="@+id/catalogTitle"
+        android:id="@+id/listSongs"
         android:layout_width="fill_parent"
-        android:layout_height="500dp">
+        android:layout_height="480dp">
 
     </msfot.muxic.magic_playlist>
 
 
+
+
     <LinearLayout
-        android:layout_below="@+id/listSong"
+        android:layout_below="@+id/listSongs"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
@@ -24,19 +41,20 @@
         >
 
     <Button
-        android:layout_below="@+id/listSong"
+
+        android:id="@+id/catalogo"
         android:layout_width="120dp"
         android:layout_height="match_parent"
-        android:text="Musica"
+        android:text="Catalogo"
         />
     <Button
-
+        android:id="@+id/playingNow"
         android:layout_width="120dp"
         android:layout_height="match_parent"
-        android:text="Promos"
+        android:text="Play"
         />
     <Button
-
+        android:id="@+id/sugerencias"
         android:layout_width="120dp"
         android:layout_height="fill_parent"
         android:text="Sugerencia"

@@ -70,6 +70,17 @@ public class magic_playlist extends RelativeLayout {
 
     }
 
+    public void llenaLista2(ArrayList<String> songs){
+
+        String[] songsList = new String[songs.size()];
+        songsList = songs.toArray(songsList);
+
+
+        myList.setAdapter(new list_adapter2(getContext(), R.layout.item_song2, songsList));
+
+
+    }
+
     public void showAlert(String cadena, Context ctx){
         //se prepara la alerta creando nueva instancia
         AlertDialog.Builder alertbox = new AlertDialog.Builder(ctx);

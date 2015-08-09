@@ -7,6 +7,8 @@
 
     >
 
+
+
     <RelativeLayout
 
         android:paddingLeft="5dp"
@@ -18,13 +20,13 @@
         >
 
         <ImageView
-            android:id="@+id/imgAlbum"
+            android:id="@+id/imgAlbum2"
             android:layout_width="50dp"
             android:layout_height="50dp"
             />
 
         <TextView
-            android:layout_toRightOf="@id/imgAlbum"
+            android:layout_toRightOf="@id/imgAlbum2"
             android:id="@+id/cancion"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -34,7 +36,7 @@
             android:textSize="14dip"
             android:textColor="#040404"
             android:typeface="sans"
-           />
+            />
 
         <TextView
             android:id="@+id/artista"
@@ -65,20 +67,7 @@
 
     </RelativeLayout>
 
-    <Button
-        android:onClick="clickHandler"
-        android:id="@+id/btnUp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="0xf087"
-        android:textColor="#FFFFFF"
-        android:background="#5CB85C"
-        android:textSize="18dip"
-        android:textStyle="bold"
-        android:typeface="sans"
-        android:layout_marginRight="5dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
+
 
 </RelativeLayout>
